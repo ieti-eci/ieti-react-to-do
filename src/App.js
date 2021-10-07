@@ -19,24 +19,42 @@ function App() {
     },
   ]);
 
-  const handleTaskChange = () => {
-    console.log("changed");
+  const [textValue, setTextValue] = useState("");
+
+  const handleTaskChange = (index) => () => {
+    const arr = [...tasks];
+    arr[index].isCompleted = !arr[index].isCompleted;
+    setTasks(arr);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  const handleTextChange = (event) => {
+    const value = event.target.value;
+    setTextValue(value);
   };
 
   return (
     <main>
-      <form>
-        <input type="text" placeholder="Task name" />
+      <form onSubmit={handleSubmit}>
+        <input
+            value={textValue}
+            onChange={handleTextChange}
+            type="text"
+            placeholder="Task name"
+        />
         <button>Create Task</button>
       </form>
 
       <ul>
-        {tasks.map((task) => {
+        {tasks.map((task, index) => {
           return (
             <TaskItem
               isChecked={task.isCompleted}
               taskName={task.name}
-              onTaskChange={handleTaskChange}
+              onTaskChange={handleTaskChange(index)}
             />
           );
         })}
