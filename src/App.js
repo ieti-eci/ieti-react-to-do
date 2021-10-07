@@ -27,8 +27,18 @@ function App() {
     setTasks(arr);
   };
 
+  const newTask = (name) => {
+    const newTask = {
+      isCompleted: false,
+      name: name,
+    };
+
+    setTasks([...tasks, newTask]);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    newTask(textValue);
   };
 
   const handleTextChange = (event) => {
@@ -40,10 +50,10 @@ function App() {
     <main>
       <form onSubmit={handleSubmit}>
         <input
-            value={textValue}
-            onChange={handleTextChange}
-            type="text"
-            placeholder="Task name"
+          value={textValue}
+          onChange={handleTextChange}
+          type="text"
+          placeholder="Task name"
         />
         <button>Create Task</button>
       </form>
